@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mall_论坛 | 入耳式耳机 </title>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/me.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/me_write.css"/>
+    <script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+	<script type="text/jscript" src="/static/bbs/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/tishi/js/message.js"></script>
+    <script>
+        $(function () {
+            if ({{ data }} == 0) {
+                $.message({
+                    message: '提交成功',
+                    duration: '2000',
+                    type: 'info'
+                });
+            }
+        })
+    </script>
+	</head>
+	<body>
+		<!--top-->
+		<div class="toop">
+			<a href="#">
+				<img src="/static/bbs/images/logo.jpg" />
+				<span class="yd">●</span>
+				<div>
+				<span>专为耳机发烧友</span>
+				<br>
+				<p>专业评测耳机</p>
+				</div>
+			</a>
+		</div>
+		<!--top-->
+
+		<!-- navg -->
+		<div class="navg">
+			<a class="navg_a" href="/bbs/Userdata_{{ request.session.bbsname }}"><span>我的中心</span></a>
+			<a  class="navg_a navg_g" href="/bbs"><span>首页</span></a>
+		</div>
+		<!-- navg -->
+
+		<div class="content">
+			<form method="post" action="/bbs/put">
+            {% csrf_token %}
+                <input name="bbsname" type="text" id="bbsname" style="display: none" value="{{ request.session.bbsname }}">
+                <div class="write_title">
+                    <span>标题:</span>
+                    <input type="text" name="title">
+                    <div class="write_property">
+                    <h4>选择您评测的耳机:</h4>
+                    <input class="property" type="text" name="property" list="ide">
+                    <datalist id="ide">
+                        {% for l in list %}
+                            <option value="{{ l.title }}"/>
+                        {% endfor %}
+                    </datalist>
+                    </div>
+                </div>
+				<div class="write_text">
+                    <span class="span_bt">正文:</span>
+                    <!-- 富文本区域 -->
+					   <textarea name="text" id="editor1" cols="30" rows="10" ></textarea>
+					<!-- 富文本区域 -->
+                </div>
+				<div class="write_tijiao">
+					<ul class="input_radio">
+						<li> 
+							<label for="optionLable00"> 
+								<input id="optionLable00" name="write" type="radio" checked="checked" value="0"> 
+								<span class="option-label">公开</span>
+							</label>
+						</li>
+						<li> 
+							<label for="optionLable01"> 
+								<input id="optionLable01" name="write" type="radio" value="1"> 
+								<span class="option-label">隐私</span>
+							</label>
+						</li>
+					</ul>
+					<input type="submit"/>
+				</div>
+			</form>
+		</div>
+
+		<!--footer-->
+		<div class="footer">
+			<div class="le">
+				<p>Powered by-<span>无损音乐</span>x3.1</p>
+				<p>@2019-2020 Mall WH</p>
+			</div>
+			<div class="rig">
+				<a href="#" class="aa">
+				<p>Mall 耳机音乐交流平台</p>
+				</a>
+			</div>
+		</div>
+		<!--footer-->
+    <script type="text/javascript">CKEDITOR.replace( 'editor1' );</script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mall商城卖家管理后台登陆</title>
+    <link rel="shortcut icon" href="/static/buyers/image/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/back/css/font.css">
+	<link rel="stylesheet" href="/static/back/css/xadmin.css">
+    <script type="text/javascript" src="/static/buyers/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            if ({{ error_name }} == 1){
+                alert('用户名错误');
+            }
+            if ({{ error_pwd }} == 1){
+                alert('密码错误');
+            }
+            $('#username').blur(function () {
+                if ($('#username').val().length==0){
+                    alert('请填写用户名');
+                }
+            });
+            $('#password').blur(function () {
+                if ($(this).val().length==0){
+                    alert('请填写密码');
+
+                }
+            });
+        })
+    </script>
+</head>
+<body class="login-bg">
+    <div class="login layui-anim layui-anim-up">
+        <div class="message">Mall商城卖家管理后台管理</div>
+        <div id="darkbannerwrap"></div>
+        
+        <form method="post" action="logo" class="layui-form" >
+            {% csrf_token %}
+            <input id="username" name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <hr class="hr15">
+            <input id="password" name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+            <hr class="hr15">
+            <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+            <hr class="hr20" >
+        </form>
+    </div>
+</body>
+</html>

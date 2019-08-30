@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Mall商城卖家管理后台页面</title>
+    <link rel="stylesheet" href="/static/back/css/font.css">
+    <link rel="stylesheet" href="/static/back/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/back/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/back/js/xadmin.js"></script>
+    <style>
+			.dele{
+				width: 300px;
+				height: auto;
+				background: #FFFFFF;
+				z-index: 9999;
+				position: absolute;
+				margin-left: 50%;
+                padding-bottom: 10px;
+				left: -150px;
+				top: 200px;
+				display: none;
+				border:1px solid #009688;
+				border-radius: 2px;
+			}
+			.dele>form>input{
+				width: 60px;
+				height: 30px;
+				color: #FFF;
+				background-color: #009688;
+				border: 0px;
+
+			}
+			.dele>form>#btnqd{
+				margin-left: 10px;
+				margin-top: 30px;
+			}
+			.dele>form>#btnqx{
+				float: right;
+				margin-top: 30px;
+				margin-right: 10px;
+			}
+		</style>
+  </head>
+  
+  <body class="layui-anim layui-anim-up">
+    <div id="divq" class="dele">
+			<h2 style="display: block;top: 20px;background-color: #009688;
+			padding: 5px;color: #FFF;">删除提示</h2>
+			<span id="scxx" style="display:block;margin:10px;font-size: 16px;">
+				<p style="margin-bottom: 5px;">您确定删除</p>
+				<p style="margin-bottom: 5px;">商品编号：<span id="gid"></span></p>
+				<p style="margin-bottom: 5px;">商品名：<span id="gnamesc"></span></p>
+			</span>
+            <form method="post" action="delet{{ request.session.Suname }}">
+                {% csrf_token %}
+                <input type="text" id="gidid" name="gidid" value="" style="display: none;">
+                <input type="submit" id="btnqd" value="确定"/>
+                <input type="button" id="btnqx" value="取消"/>
+            </form>
+    </div>
+
+    <div class="x-nav" id="nav">
+      <span class="layui-breadcrumb">
+        <a href="">商品管理</a>
+        <a href="">商品列表</a>
+      </span>
+    </div>
+    <div class="x-body">
+      <table class="layui-table">
+        <thead>
+          <tr>
+		    <th>商品id</th>
+            <th>商品名称</th>
+            <th>商品简介</th>
+            <th>商品价格</th>
+            <th>商品库存</th>
+            <th>操作</th>
+			</tr>
+        </thead>
+        {% for g in data  %}
+        <tbody>
+          <tr id="{{ g.id }}">
+            <td>{{ g.id }}</td>
+			<td class="gnameclss">{{ g.gname }}</td>
+            <td>{{ g.gAbout | slice:":40" }}...</td>
+            <td>{{ g.gPrice }}</td>
+            <td>{{ g.gStore }}</td>
+            <td >
+				<a href="#" id="btndele_{{ g.id }}">删除</a>
+            </td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+
+    </div>
+
+		<script>
+			$(document).ready(function(){
+			    {% for g in data  %}
+				$("#btndele_{{ g.id }}").click(function(){
+					$('#divq').slideDown();
+					var $gid = $(this).attr('id');
+                    var $Id = $gid.split('_');
+                    var $name = $('#btndele_{{ g.id }}').parent().parent().find('.gnameclss').text();
+					$('#gid').html($Id[1]);
+					$('#gidid').val($Id[1]);
+					$('#gnamesc').html($name);
+				});
+                {% endfor %}
+				$("#btnqx").click(function(){
+					$('#divq').slideUp();
+				});
+			});
+		</script>
+  </body>
+
+</html>

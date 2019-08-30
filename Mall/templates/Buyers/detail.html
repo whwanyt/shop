@@ -1,0 +1,135 @@
+{% extends "Buyers/base.html" %}
+
+{% block link %}
+	<link rel="stylesheet" href="/static/buyers/css/detail.css"/>
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="/static/buyers/css/swiper.min.css">
+    <link rel="stylesheet" href="/static/buyers/css/index.css">
+    <script>
+        $(function () {
+            var $aa = $('#uname').val();
+            if ($aa != '') {
+                $.post('/jlz', {
+                    username: '{{ request.session.uname }}',
+                    id:{{context.id}},
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                })
+            }
+            if ($aa == '') {
+                $('#jrgwc').click(function () {
+                    $.sendWarningToTop('请先登陆', 500);
+                })
+            }
+            $('#jrgwc').click(function () {
+                $.post('/jrgwc',
+                    {
+                    id:{{ context.id }},
+                    username: '{{ request.session.uname }}',
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data) {
+                    console.log(data.jr[0].jr)
+                        if (data.jr[0].jr == 1){
+                            $.sendConfirm({
+                                hideHeader: true,
+                                hideClose: false,
+                                withIcon: false,
+                                withCenter: true,
+                                msg: '成功加入发货清单！',
+                                button: {
+                                  confirm: {
+                                    text: '立即去结算',
+                                    target: '_blank',
+                                    href: 'order_{{ request.session.uname }}'
+                                  },
+                                  cancel: '继续查找商品'
+                                },
+                                onConfirm: function() {
+                                  console.log('点击确认！');
+                                },
+                                onCancel: function() {
+                                  console.log('点击取消！');
+                                },
+                                onClose: function() {
+                                  console.log('点击关闭！');
+                                }
+                              });
+                        }
+                        else if (data.jr[0].jr == 0) {
+                            $.sendSuccessToTop('已添加到购物车', 500);
+                        }
+                    }
+                )
+            })
+            });
+    </script>
+{% endblock link %}
+
+{% block content %}
+
+<input type="text" id="uname" style="display: none" value="{{ request.session.uname }}">
+
+<div class="det_jj">
+	<div class="det">
+	<div class="det_jj_img">
+		<!-- Swiper -->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+                {% for i in image %}
+				  <div class="swiper-slide"><img style="width: 500px;height: 500px" src="{{ i.gimage }}"/></div>
+                {% endfor %}
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<!-- 商品信息 -->
+	<div class="det_jj_cont">
+		<h2>{{ context.gname }}</h2>
+		<hr class="hr_sp"/>
+		<p>{{ context.gAbout }}</p>
+		<span>{{ context.gTtype }}</span>
+        <h5>售价</h5>
+        <span style="color: #DC143C;"> ￥ {{ context.gPrice }}</span>
+		<h5>数量</h5>
+		<input type="number" class="inpnum" name="points" min="1" max="10" value="1"/>
+		<br />
+        <input type="button" id="jrgwc" value="加入购物车" class="btn"/>
+        <form method="post" action="/cart_goods">
+            {% csrf_token %}
+            <input type="text" name="name" id="uname" style="display: none" value="{{ request.session.uname }}">
+            <input type="text" name="goods_id" value="{{ context.id }}" style="display: none">
+		    <input type="submit" value="立即购买" class="btn"/>
+        </form>
+	</div>	
+	</div>
+</div>
+<div class="det_centon">
+        {% autoescape off %}
+		    {{ context.gcontent }}
+        {% endautoescape %}
+	</div>
+{% endblock content %}
+
+{% block script %}
+<!-- Swiper JS -->
+<script src="/static/buyers/js/swiper.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script language="javascript"> 
+        var mySwiper = new Swiper('.swiper-container',{
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+            renderFraction: function (currentClass, totalClass) {
+             return '<span class="' + currentClass + '"></span>' +
+                 ' of ' +
+                '<span class="' + totalClass + '"></span>';
+            },
+        },
+        autoplay: {
+            delay: 5000,//1秒切换一次
+        },
+    })
+</script>
+{% endblock script%}

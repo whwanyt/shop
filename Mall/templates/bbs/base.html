@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mall_论坛 | {{ title }}耳机</title>
+    <link rel=" shortcut icon" href="/static/buyers/image/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/base.css"/>
+        {% block css %}
+        {% endblock css %}
+	<script type="text/jscript" src="/static/bbs/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/tishi/js/message.js"></script>
+	<script>
+        $(function () {
+            var $aa = $('#bbsname').val();
+            if ($aa != ''){
+                $('#login').css('display','none');
+                $('#loginf').css('display','block');
+                $('#cont').css('display','block');
+            }
+            else{
+                $('#cont').css('display','none');
+            }
+            $('#user').click(function () {
+                var $s = $('#bbsname').val();
+                if ($s == ''){
+                    $.message({
+                        message:'请先登陆',
+                        duration:'2000',
+                        type:'info'
+                    });
+                }else {
+                    window.location.href = "/bbs/Userdata_{{ request.session.bbsname }}"
+                }
+            });
+
+            $('#deel').click(function () {
+                $.post('/bbs/del',
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data) {
+                     if (data.data == 4){
+                        $.message({
+                            message:'退出成功',
+                            duration:'2000',
+                            type:'info'
+                        });
+                        $('#login').css('display','block');
+                        $('#loginf').css('display','none');
+                        window.location.href = "/bbs/list_{{ title }}";
+                    }
+                })
+            });
+            $('#tijiao').click(function () {
+                $.post('/bbs/login',
+                    {
+                        name:$('#username').val(),
+                        pwd:$('#userpwsd').val(),
+                        cookpwd:$('#cookietime').val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data) {
+                        console.log(data.data)
+                        if (data.data == 0){
+                            $.message({
+                                message:'用户名错误',
+                                duration:'2000',
+                                type:'info'
+		                    });
+                        }
+                        else if (data.data == 1){
+                            $.message({
+                                message:'登陆成功',
+                                duration:'2000',
+                                type:'info'
+		                    });
+                            $('#login').css('display','none');
+                            $('#loginf').css('display','block');
+                            window.location.href = "/bbs/list_{{ title }}";
+                        }
+                        else if (data.data == 2){
+                            $.message({
+                                message:'密码错误',
+                                duration:'2000',
+                                type:'info'
+		                    });
+                        }
+                    }
+                )
+            })
+        })
+    </script>
+	</head>
+	<body>
+    <input type="text" id="bbsname" style="display: none" value="{{ request.session.bbsname }}">
+		<!--top-->
+		<div class="toop">
+			<a href="#">
+				<img src="/static/bbs/images/logo.jpg" />
+				<span class="yd">●</span>
+				<div>
+				<span>专为耳机发烧友</span>
+				<br>
+				<p>专业评测耳机</p>
+				</div>
+			</a>
+			<div id="login" class="login">
+
+				<table width="440"  border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td style="width: 60px;height: 34px;">用户名</td>
+							<td style="width: 180px;">
+								<input type="text" name="username" id="username" autocomplete="off" style="height: 20px;"/>
+							</td>
+							<td style="width: 90px;">
+								<input type="checkbox" name="cookietime" id="cookietime"/>
+								<label for="cookietime">记住密码</label>
+							</td>
+							<td class="tdbor"><a class="aa" href="/bbs/register">注册</a></td>
+						</tr>
+						<tr>
+							<td>密码</td>
+							<td><input type="password" name="userpwsd" id="userpwsd" autocomplete="off" style="height: 20px;"/></td>
+							<td><input id="tijiao" type="button" value="登陆"/></td>
+							<td  class="tdbor"><a class="aa" href="#">找回密码</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+            <div id="loginf" class="logof">
+				<div>
+					<a class="aa" href="#">WHWAN</a>
+					<a class="aa dx" href="#">我的评测:0</a>
+				</div>
+				<div style="margin-left:45px;">
+                    <a id="deel" class="aa dx" href="#">退出</a>
+					<a class="aa dx" href="#">我的收藏:0</a>
+				</div>
+			</div>
+		</div>
+		<!--top-->
+		
+		<!-- navg -->
+		<div class="navg">
+			{% block navg %}
+            {% endblock navg %}
+		</div>
+		<!-- navg -->
+		
+		<!-- seek -->
+		{% block seek %}
+        {% endblock seek %}
+
+		<div class="cont">
+			
+			<!--context-->
+			<div class="context">
+				{% block content %}
+				{% endblock content %}
+			</div>
+			<!--context-->
+			
+		</div>
+		
+		<!--footer-->
+		<div class="footer">
+			<div class="le">
+				<p>Powered by-<span>无损音乐</span>x3.1</p>
+				<p>@2019-2020 Mall WH</p>
+			</div>
+			<div class="rig">
+				<a href="#" class="aa">
+				<p>Mall 耳机音乐交流平台</p>
+				</a>
+			</div>
+		</div>
+		<!--footer-->
+	</body>
+</html>

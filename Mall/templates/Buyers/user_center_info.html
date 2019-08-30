@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Mall商城-用户中心</title>
+	<link rel="stylesheet" type="text/css" href="/static/buyers/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/static/buyers/css/main.css">
+    <link rel="stylesheet" href="/static/buyers/css/asidenav.css">
+</head>
+<body>
+
+	<div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="/static/buyers/image/logo.jpg" width="200px"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;Mall商城欢迎您： <span style="color: #f34444">{{ request.session.uname }}</span></div>
+		<div class="search_con fr">
+            <form method="get" action="/sous">
+			<input type="text" class="input_text fl" name="sous" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="info_{{ request.session.uname }}" class="active">· 个人信息</a></li>
+				<li><a href="order_{{ request.session.uname }}">· 全部订单</a></li>
+				<li><a href="site_{{ request.session.uname }}">· 收货地址</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<div class="info_con clearfix">
+				<h3 class="common_title2">基本信息</h3>
+						<ul class="user_info_list">
+							<li><span>用户名：</span>{{ user.Upet }}</li>
+							<li><span>联系方式：</span>{{ user.Uphone }}</li>
+							<li><span>联系地址：</span>{{ user.Uadd }}</li>
+						</ul>
+				</div>
+				
+				<h3 class="common_title2">最近浏览</h3>
+				<div class="zjll">
+                    {% for l in list %}
+                    <a href="detail_{{ l.id }}">
+                        <div class="zjll_tit">
+                            <img src="{{ l.img }}" />
+                            <p>{{ l.name }}</p>
+                            <span>￥<em>{{ l.pr }}</em></span>
+                        </div>
+                    </a>
+					{% endfor %}
+				</div>
+		</div>
+	</div>
+
+    <!--浮窗-->
+    <div class="aside-nav bounceInUp animated" id="aside-nav">
+      <label for="" class="aside-menu" title="按住拖动">菜单</label>
+
+        <a href="/" title="首页" class="menu-item menu-first">首页</a>
+        <a href="Userout" title="登出" class="menu-item menu-second">登出</a>
+        <a href="order" title="购物车" class="menu-item menu-third">购物车</a>
+        <a href="/bbs" title="论坛" class="menu-item menu-fourth">论坛</a>
+    </div>
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2019 陕西218出品 All Rights Reserved</p>
+		<p>电话：010-****888    陕ICP备*******8号</p>
+	</div>
+<script type="text/javascript" src="/static/buyers/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/buyers/js/asidenav.js"></script>
+</body>
+</html>

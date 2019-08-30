@@ -1,0 +1,6 @@
+.search_con{width:200px;height:28px;border:1px solid #666;margin:25px 0 0 -20px;background:url(../image/icons.png) 10px -341px no-repeat;display: flex; border-radius: 20px;}
+.search_con .input_text{width:150px;height:24px;border:0px;margin:2px 0 0 36px;outline:none;font-size:12px;color:#737272;font-family:'Microsoft Yahei'}
+
+.search_con .input_btn{
+	width:160px;height:38px;background-color:#DC143C;border:0px;font-size:14px;color:#fff;font-family:'Microsoft Yahei';outline:none;cursor:pointer;margin-right: -1px;
+}

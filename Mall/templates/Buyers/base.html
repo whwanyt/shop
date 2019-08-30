@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Music_Mall耳机商城</title>
+    <link rel=" shortcut icon" href="/static/buyers/image/favicon.ico"/>
+    <link rel="stylesheet" href="/static/buyers/css/sou.css">
+    <link rel="stylesheet" href="/static/buyers/css/top.css">
+    <link rel="stylesheet" href="/static/buyers/css/asidenav.css">
+    <!--footer -->
+
+    <!--footer -->
+    {#弹窗#}
+    <link rel="stylesheet" href="/static/cpm/css/demo.css">
+  	<link rel="stylesheet" href="/static/cpm/src/css/dialog.css">
+    <script type="text/javascript" src="/static/buyers/js/jquery.min.js"></script>
+    <script src="/static/cpm/src/jquery.dialog.js"></script>
+    <script>
+        $(function() {
+            var $aa = $('#uname').val();
+            if ($aa == ''){
+                $('#info').html('登陆');
+                $('#info').attr('href','/Userlogin');
+                $('#fcdl').html('登陆');
+                $('#fcdl').attr('href','/Userlogin');
+                $('#fcdl').removeClass("menu-line");
+                $('#fcgw').attr('href','/Userlogin');
+            }
+        })
+    </script>
+    {% block link %}
+    {% endblock link %}
+</head>
+<body>
+<input type="text" id="uname" style="display: none" value="{{ request.session.uname }}">
+<!-- logo -->
+<div class="logo">
+	<img src="/static/buyers/image/logo.jpg"/>
+	<ul class="menu">
+		<li><a href="/">首页</a></li>
+		<li><a href="#" id="login-btn">分类</a></li>
+		<li><a href="/bbs">论坛</a></li>
+		<li><a id="info" href="info_{{ request.session.uname }}">个人中心</a></li>
+	</ul>
+	<div class="search_con fr">
+        <form method="get" action="/sous">
+		    <input type="text" class="input_text fl" name="sous" placeholder="搜索商品">
+        </form>
+		<!-- <input type="button" class="input_btn fr" name="" value="搜索"> -->
+	</div>
+</div>
+<!-- logo -->
+
+<!-- 下拉栏 -->
+<div class="xll" id="login-box">
+	<div class="xlla">
+		<div class="xlla_z" id="xlla_z">
+			<ul><a href="list_ru" id="ruer">入耳式</a></ul>
+			<ul><a href="list_rs" id="ersai">耳塞式</a></ul>
+			<ul><a href="list_td" id="toudai">头戴式</a></ul>
+			<ul><a href="list_wx" id="wuxian">无线</a></ul>
+			<ul><a href="list_gd" id="gaoduan">高端</a></ul>
+		</div>
+
+		<div class="xlla_y" id="xlla_y">
+			<!-- 入耳 -->
+			<div class="xlla_ruer" id="ru">
+				<!-- a迭代 -->
+                {% for r in Rershis %}
+				<div class="xlla_y_cont">
+					<a href="detail_{{ r.id }}">
+					<img src="{{ r.gimg }}" style="width: 140px; height: 160px;" />
+					<br />
+					<span class="xll_y_cont_span">{{ r.gname | slice:":10"}}</span>
+
+					</a>
+				</div>
+                {% endfor %}
+				<!-- b迭代 -->
+
+			</div>
+			<!-- 耳塞 -->
+			<div class="xlla_er" id="sai">
+				<!-- a迭代 -->
+				{% for e in Ersais %}
+				<div class="xlla_y_cont">
+					<a href="detail_{{ e.id }}">
+					<img src="{{ e.gimg }}" style="width: 140px; height: 160px;" />
+					<br />
+					<span class="xll_y_cont_span">{{ e.gname | slice:":10" }}</span>
+					</a>
+				</div>
+                {% endfor %}
+				<!-- b迭代 -->
+			</div>
+			<!-- 头戴 -->
+			<div class="xlla_er" id="tou">
+				<!-- a迭代 -->
+				{% for t in Toudais %}
+				<div class="xlla_y_cont">
+					<a href="detail_{{ t.id }}">
+					<img src="{{ t.gimg }}" style="width: 140px; height: 160px;" />
+					<br />
+					<span class="xll_y_cont_span">{{ t.gname | slice:":10" }}</span>
+					</a>
+				</div>
+                {% endfor %}
+				<!-- b迭代 -->
+			</div>
+			<!-- 无线 -->
+			<div class="xlla_er" id="wu">
+				<!-- a迭代 -->
+				{% for w in Wuxians %}
+				<div class="xlla_y_cont">
+					<a href="detail_{{ w.id }}">
+					<img src="{{ w.gimg }}" style="width: 140px; height: 160px;" />
+					<br />
+					<span class="xll_y_cont_span">{{ w.gname | slice:":10" }}</span>
+					</a>
+				</div>
+                {% endfor %}
+				<!-- b迭代 -->
+
+			</div>
+			<!-- 高端 -->
+			<div class="xlla_er" id="gao">
+				<!-- a迭代 -->
+				{% for g in Gaoduans %}
+				<div class="xlla_y_cont">
+					<a href="detail_{{ g.id }}">
+					<img src="{{ g.gimg }}" style="width: 140px; height: 160px;" />
+					<br />
+					<span class="xll_y_cont_span">{{ g.gname | slice:":10" }}</span>
+					</a>
+				</div>
+                {% endfor %}
+				<!-- b迭代 -->
+
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+{% block content %}
+{% endblock content %}
+
+<!--浮窗-->
+    <div class="aside-nav bounceInUp animated" id="aside-nav">
+      <label for="" class="aside-menu" title="按住拖动">菜单</label>
+
+        <a href="/" title="首页" class="menu-item menu-first">首页</a>
+        <a id="fcdl" href="info_{{ request.session.uname }}" title="个人中心" class="menu-item menu-second menu-line">个人<br>中心</a>
+        <a id="fcgw" href="order_{{ request.session.uname }}" title="购物车" class="menu-item menu-third">购物车</a>
+        <a href="/bbs" title="论坛" class="menu-item menu-fourth">论坛</a>
+    </div>
+
+<!-- 关于-->
+<div class="footer">
+	<div class="foot_link">
+		<a href="#">关于我们</a>
+		<span>|</span>
+		<a href="#">联系我们</a>
+		<span>|</span>
+		<a href="#">招聘人才</a>
+		<span>|</span>
+		<a href="#">友情链接</a>
+        <span>|</span>
+		<a href="/back/home">商家后台</a>
+	</div>
+	<p>CopyRight © 2019 陕西218出品 All Rights Reserved</p>
+	<p>电话：010-****888    陕ICP备*******8号</p>
+</div>
+
+<!-- footer -->
+<!-- footer end -->
+<script src="/static/buyers/js/index.js"></script>
+<script type="text/javascript" src="/static/buyers/js/asidenav.js"></script>
+{% block script %}
+{% endblock script%}
+</body>
+</html>

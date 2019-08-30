@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>Mall商城卖家管理后台页面</title>
+
+    <link rel="stylesheet" href="/static/back/css/font.css">
+    <link rel="stylesheet" href="/static/back/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/back/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/back/js/xadmin.js"></script>
+    <script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/static/back/js/jquery-1.12.4.min.js"></script>
+      	<!--主要样式-->
+  	<link rel="stylesheet" href="/static/cpm/css/demo.css">
+  	<link rel="stylesheet" href="/static/cpm/src/css/dialog.css">
+    <script language="JavaScript">
+    var a =1
+    function addFile()
+    {
+     var left = '<input type="text" id="L_repass" name="gimage_';
+     a +=1;
+     var str = left+a+'" required="" autocomplete="off" class="layui-input" style="width: 600px"><br />';
+     document.getElementById('goodsimages').insertAdjacentHTML("beforeEnd",str);
+     document.getElementById('gimgs').value = a;
+    };
+    /***
+    $(function(){
+        $.get('area1/',function(dic) {
+             pro=$('#pro');
+             $.each(dic.data,function(index,item){
+                 pro.append('<option value='+item[0]+'>'+item[1]+'</option>');
+                 console.log(dic.data)
+             })
+        });
+    })
+        ***/
+    </script>
+  </head>
+  
+  <body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" name="goods" method="post" action="addput">
+            {% csrf_token %}
+          <input type="text" name="gibm" value="{{ request.session.Suname }}" style="display: none;">
+          <input type="number" id="gimgs" name="gimgs" value="1" style="display: none;">
+          <div class="layui-form-item">
+              <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>商品名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="L_username" name="gname" required=""
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>商品简介
+              </label>
+              <div class="layui-input-inline">
+                  <textarea style="width: 400px;height: 80px;" name="gabout" id="L_About" cols="30" rows="10" class="layui-input"></textarea>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>商品标签
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="gttype" required=""
+                  autocomplete="off" class="layui-input" style="width: 300px">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+                  <span class="x-red">*</span>商品价格
+              </label>
+              <div class="layui-input-inline">
+                  <input type="number" id="L_repass" name="gprice" required=""
+                  autocomplete="off" class="layui-input" min="0.00" step="0.01">
+              </div>
+          </div>
+		  <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+                  <span class="x-red">*</span>商品库存
+              </label>
+              <div class="layui-input-inline">
+                  <input type="number" id="gstore" name="gstore" required=""
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>商品分类
+              </label>
+              <div class="layui-input-inline">
+                  <select id="pro" name="glabel">
+                      <option value="">----</option>
+                      {% for l in label %}
+                          <option value="{{ l.id }}">{{ l.goffers }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+          </div>
+		  <div>
+			  <!-- 商品图片上传 -->
+              <label for="L_repass" class="layui-form-label" title="上传网络图片，暂不提供图片储存服务">
+                  <span class="x-red">*</span>商品缩略图
+              </label>
+              <div id="goodsimages" class="layui-input-inline">
+                  <input type="text" id="GoodsImg" name="gimage_1" required=""
+                  autocomplete="off" class="layui-input" style="width: 600px"><br>
+              </div>
+              <br>
+              <input type="button" value="增加链接" onclick="addFile()"
+                style="width: 70px;height: 30px;background-color: #009688;color:#FFF;border: 0px;margin-top: -50px;margin-bottom: 10px;margin-left: 110px" title="建议四到六张图片最佳">
+			  <!-- 商品图片上传 -->
+		  </div>
+		  <div class="layui-form-item layui-form-text">
+                    <label for="desc" class="layui-form-label" title="自定义商品展示风格">
+                        <span class="x-red">*</span>商品内容
+                    </label>
+                    <div class="layui-input-inline">
+                    <!-- 富文本区域 -->
+					   <textarea name="gcontent" id="editor1" cols="30" rows="10" ></textarea>
+					<!-- 富文本区域 -->
+                    </div>
+                </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  添加
+              </button>
+			  
+          </div>
+      </form>
+    </div>
+	<script type="text/javascript">CKEDITOR.replace( 'editor1' );</script>
+     <script src="/static/cpm/src/jquery.dialog.js"></script>
+	 <script type="text/javascript">
+	        if ({{ xinxi }} == 1){
+	            $.sendSuccessToTop('商品添加成功', 800);
+	        }
+	        if ({{ xinxi }} == 0) {
+	            $.sendWarningToTop('商品已存在', 800);
+            }
+	  </script>
+  </body>
+
+</html>

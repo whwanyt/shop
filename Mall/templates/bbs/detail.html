@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mall_论坛 | 入耳式耳机 </title>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/detail.css"/>
+	<script type="text/jscript" src="/static/bbs/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/tishi/js/message.js"></script>
+    <script>
+        $(function () {
+            var $aa = $('#bbsname').val();
+            if ($aa == ''){
+                $('#login').css('display','block');
+                $('#loginf').css('display','none');
+            }else{
+                $('#login').css('display','none');
+                $('#loginf').css('display','block');
+            }
+
+            $('#user').click(function () {
+                var $s = $('#bbsname').val();
+                if ($s == ''){
+                    $.message({
+                        message:'请先登陆',
+                        duration:'2000',
+                        type:'info'
+                    });
+                }else {
+                    window.location.href = "/bbs/Userdata_{{ request.session.bbsname }}"
+                }
+            });
+
+            $('#commt').click(function () {
+                $.post('/bbs/commt',
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        'text':$('#commtext').val(),
+                        'name':$aa,
+                        'id':{{ txt.id }}
+                    },
+                    function (data) {
+                    if (data.data == 1){
+                        $.message({
+                            message:'评论成功成功',
+                            duration:'2000',
+                            type:'info'
+                        });
+                        setTimeout(function () {
+                                window.location.reload()
+                        }, 2000);
+                    }
+                })
+            });
+
+            $('#shoucan').click(function () {
+                var $s = $('#bbsname').val();
+                if($s != ''){
+                    $.post('/bbs/shoucan',{
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        'name':$s,
+                        'id':{{ txt.id }}
+                    },function (data) {
+                        if (data.data == 7){
+                            $.message({
+                                message:'您已收藏',
+                                duration:'2000',
+                                type:'info'
+                            });
+                        }else if (data.data == 8) {
+                            $.message({
+                                message:'收藏成功',
+                                duration:'2000',
+                                type:'info'
+                            });
+                        }
+                    })
+                }else{
+                    $.message({
+                        message:'请先登陆',
+                        duration:'2000',
+                        type:'info'
+                    });
+                }
+            });
+
+            $('#deel').click(function () {
+                $.post('/bbs/del',
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data) {
+                     if (data.data == 4){
+                        $.message({
+                            message:'退出成功',
+                            duration:'2000',
+                            type:'info'
+                        });
+                        $('#login').css('display','block');
+                        $('#loginf').css('display','none');
+                        window.location.href = "/bbs";
+                    }
+                })
+            });
+
+            $('#tijiao').click(function () {
+                $.post('/bbs/login',
+                    {
+                        name:$('#username').val(),
+                        pwd:$('#userpwsd').val(),
+                        cookpwd:$('#cookietime').val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    function (data) {
+                        console.log(data.data)
+                        if (data.data == 0){
+                            $.message({
+                                message:'用户名错误',
+                                duration:'2000',
+                                type:'info'
+		                    });
+                        }
+                        else if (data.data == 1){
+                            $.message({
+                                message:'登陆成功',
+                                duration:'2000',
+                                type:'info'
+		                    });
+                            $('#login').css('display','none');
+                            $('#loginf').css('display','block');
+                            window.location.href = "/bbs";
+                        }
+                        else if (data.data == 2){
+                            $.message({
+                                message:'密码错误',
+                                duration:'2000',
+                                type:'info'
+		                    });
+                        }
+                    }
+                )
+            })
+        })
+    </script>
+	</head>
+	<body>
+        <input type="text" id="bbsname" style="display: none" value="{{ request.session.bbsname }}">
+		<!--top-->
+		<div class="toop">
+			<a href="#">
+				<img src="/static/bbs/images/logo.jpg" />
+				<span class="yd">●</span>
+				<div>
+				<span>专为耳机发烧友</span>
+				<br>
+				<p>专业评测耳机</p>
+				</div>
+			</a>
+			<div id="login" class="login">
+
+				<table width="440"  border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td style="width: 60px;height: 34px;">用户名</td>
+							<td style="width: 180px;">
+								<input type="text" name="username" id="username" autocomplete="off" style="height: 20px;"/>
+							</td>
+							<td style="width: 90px;">
+								<input type="checkbox" name="cookietime" id="cookietime"/>
+								<label for="cookietime">记住密码</label>
+							</td>
+							<td class="tdbor"><a class="aa" href="/bbs/register">注册</a></td>
+						</tr>
+						<tr>
+							<td>密码</td>
+							<td><input type="password" name="userpwsd" id="userpwsd" autocomplete="off" style="height: 20px;"/></td>
+							<td><input id="tijiao" type="button" value="登陆"/></td>
+							<td  class="tdbor"><a class="aa" href="#">找回密码</a></td>
+						</tr>
+					</tbody>
+				</table>
+            </div>
+            <div id="loginf" class="logof">
+                <div>
+					<a class="aa" href="#">WHWAN</a>
+					<a class="aa dx" href="#">我的评测:0</a>
+				</div>
+				<div style="margin-left:45px;">
+                    <a id="deel" class="aa dx" href="#">退出</a>
+					<a class="aa dx" href="#">我的收藏:0</a>
+				</div>
+			</div>
+
+		</div>
+		<!--top-->
+		
+		<!-- navg -->
+		<div class="navg">
+			<a  class="navg_a navg_g" href="/bbs"><span>论坛</span></a>
+			<p class="navg_p">></p>
+			<p class="detail">{{ txt.Etitle }}</p>
+			<a id="user" class="navg_gooos" href="#"><span>我的中心</span></a>
+		</div>
+		<!-- navg -->
+		
+		<!-- seek -->
+        <form action="/bbs/search" method="post">
+        {% csrf_token %}
+		<div class="seek back">
+            <input class="seek_seek" name="text" type="text" placeholder="请输入搜索内容"/>
+			<div class="seek_xu">
+				<input class="seek_xuanx" type="radio" name="seekxx" value="0" checked="checked"/>
+				<label class="seek_xuan">文章</label>
+				<input class="seek_xuanx" type="radio" name="seekxx" value="1"/>
+				<label class="seek_xuan">用户</label>
+			</div>
+			<input type="submit" value="搜索" class="seek_tijiao"/>
+		</div>
+        </form>
+		<!-- seek -->
+		<div class="cont">
+			
+			<!--context-->
+			<div class="article">
+				<div class="article_title">
+					<p>{{ txt.Etitle }}</p>
+				</div>
+				
+				<div class="article_cont">
+					{% autoescape off %}
+		                {{ txt.Etext }}
+                    {% endautoescape %}
+				</div>
+
+				<div class="article_comment">
+                    <div class="commm">
+					    <span class="comment_title">评论</span>
+                        <input id="shoucan" type="button" value="收藏">
+                    </div>
+                    <div id="cont"  class="comment_cont">
+						<div>
+						</div>
+						<div class="comment_tj">
+						<span>提交您的评论：</span>
+						<br />
+						<textarea style="width: 400px;height: 80px;" name="commt" id="commtext" cols="30" rows="10" class="layui-input"></textarea>
+						<br />
+						<input id="commt" type="button" value="提交"/>
+						</div>
+					</div>
+					<!--复用-->
+                    {% for l in commt %}
+                    <div class="comment_cont">
+						<div>
+						<img src="/static/media/{{ l.img }}" />
+						</div>
+						<div class="comment_y">
+						<span>{{ l.name }}</span>
+						<br />
+						<p>{{ l.txt }}</p>
+						<em>评论时间：{{ l.date }}</em>
+						</div>
+					</div>
+                    {% endfor %}
+					<!--复用-->
+				</div>
+				
+			</div>
+			<!--context-->
+			
+		</div>
+		
+		<!--footer-->
+		<div class="footer">
+			<div class="le">
+				<p>Powered by-<span>无损音乐</span>x3.1</p>
+				<p>@2019-2020 Mall WH</p>
+			</div>
+			<div class="rig">
+				<a href="#" class="aa">
+				<p>Mall 耳机音乐交流平台</p>
+				</a>
+			</div>
+		</div>
+		<!--footer-->
+	</body>
+</html>

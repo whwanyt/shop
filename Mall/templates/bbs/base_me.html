@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mall_论坛 | 入耳式耳机 </title>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/me.css"/>
+        {% block css %}
+        {% endblock css %}
+	<script type="text/jscript" src="/static/bbs/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/tishi/js/message.js"></script>
+	    {% block js %}
+        {% endblock js %}
+	</head>
+	<body>
+		<!--top-->
+		<div class="toop">
+			<a href="#">
+				<img src="/static/bbs/images/logo.jpg" />
+				<span class="yd">●</span>
+				<div>
+				<span>专为耳机发烧友</span>
+				<br>
+				<p>专业评测耳机</p>
+				</div>
+			</a>
+		</div>
+		<!--top-->
+		
+		<!-- navg -->
+		<div class="navg">
+			<a class="navg_a" href="/bbs/Userdata"><span>我的中心</span></a>
+			<a  class="navg_a navg_g" href="/bbs"><span>首页</span></a>
+		</div>
+		<!-- navg -->
+		
+		<div class="content">
+			<div class="cont_list">
+				<ul>
+                    <li><a href="/bbs/Userdata_{{ request.session.bbsname }}">个人资料</a></li>
+                    <li><a href="/bbs/Userstore_{{ request.session.bbsname }}">我的收藏</a></li>
+                    <li><a href="/bbs/Userpost_{{ request.session.bbsname }}">我的评测</a></li>
+				</ul>
+			</div>
+			<div class="cont_text">
+                {% block context %}
+                {% endblock context %}
+			</div>
+		</div>
+		
+		<!--footer-->
+		<div class="footer">
+			<div class="le">
+				<p>Powered by-<span>无损音乐</span>x3.1</p>
+				<p>@2019-2020 Mall WH</p>
+			</div>
+			<div class="rig">
+				<a href="#" class="aa">
+				<p>Mall 耳机音乐交流平台</p>
+				</a>
+			</div>
+		</div>
+		<!--footer-->
+	</body>
+</html>

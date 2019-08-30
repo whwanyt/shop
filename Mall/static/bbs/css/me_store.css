@@ -1,0 +1,60 @@
+.content .cont_text .cont_text_txt .store{
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #777777;
+}
+.content .cont_text .cont_text_txt .store_title{
+	position: relative;
+	display: flex;
+}
+.content .cont_text .cont_text_txt .store_title span{
+	display: block;
+	border: 1px solid #E0E0E0;
+	font-size: 12px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.content .cont_text .cont_text_txt .store_title a{
+	margin-left: 5px;
+	text-decoration: none;
+	color: #000000;
+	font-size: 16px;
+	font-weight: 600;
+}
+.content .cont_text .cont_text_txt .store_title a:hover{
+	color: #4E9EA0;
+}
+.content .cont_text .cont_text_txt .store_title p:hover{
+	color: #4E9EA0;
+}
+.content .cont_text .cont_text_txt .store_title p{
+	position: absolute;
+	margin-left: 700px;
+	cursor: pointer;
+}
+.content .cont_text .cont_text_txt .store_tent{
+	margin-top: 5px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 14px;
+	color: #777777;
+}
+.content .cont_text .cont_text_txt .store_footer{
+	display: flex;
+	padding-left: 5px;
+	margin-top: 5px;
+	font-size: 14px;
+	color: #444444;
+	margin-bottom: 10px;
+}
+.content .cont_text .cont_text_txt .store_footer span{
+	display: block;
+	border-right: 1px solid #888888;
+	padding-right: 20px;
+}
+.content .cont_text .cont_text_txt .store_footer p{
+	padding-left: 10px;
+}

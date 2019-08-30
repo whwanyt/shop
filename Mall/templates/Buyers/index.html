@@ -1,0 +1,112 @@
+{% extends "Buyers/base.html" %}
+
+{% block link %}
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="/static/buyers/css/swiper.min.css">
+    <link rel="stylesheet" href="/static/buyers/css/index.css">
+{% endblock link %}
+
+{% block content %}
+<!-- Swiper -->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+		<div class="swiper-slide blue-slide">
+			<a href="#"><img class="ani"src="/static/buyers/image/titlogo.jpg"/></a>
+		</div>
+		<div class="swiper-slide blue-slide">
+			<a href="#"><img class="ani"src="/static/buyers/image/titlogo_02.jpg"/></a>
+		</div>
+		<div class="swiper-slide blue-slide">
+			<a href="#"><img class="ani"src="/static/buyers/image/titlogo_03.jpg"/></a>
+		</div>
+		<div class="swiper-slide blue-slide">
+			<a href="#"><img class="ani"src="/static/buyers/image/titlogo_04.jpg"/></a>
+		</div>
+		</div>
+	<div class="swiper-pagination"></div><!--分页器-->
+</div>
+
+<!-- 排名 -->
+<div class="to">
+	<p class="top">耳机热销(TOP)</p>
+	<p class="top_rm">2019热门机型</p>
+</div>
+
+<!-- 推荐位置 -->
+<div class="syt">
+    <!-- 复用 -->
+    {% for tj in listtj %}
+	<div class="sytj">
+		<a href="detail_{{ tj.id }}">
+		<img class="pic" src="{{ tj.gimg }}"/>
+		<img src="/static/buyers/image/index/sytjtp.png"/>
+		<h3>{{ tj.gname | slice:":10" }}</h3>
+		<span>{{ tj.gTtype | slice:":16" }}</span>
+		<p>￥{{ tj.gPrice }}</p>
+		<hr  class="hra"/>
+		</a>
+	</div>
+    {% endfor %}
+	<!-- 复用 -->
+
+</div>
+
+<!-- 标题 -->
+<div class="tos">
+	<p class="tos_1">耳机推荐(TOP)</p>
+	<hr align="center"/>
+</div>
+
+{% for n in name %}
+<div class="contt">	
+	<div class="cont">
+		<div class="cont_top">
+			<p>{{ n.SIBM }}系列</p>
+			<hr style="background-color: #000000;"/>
+		</div>
+		<div class="cont_list">
+			{% for ll in list %}
+			<!--x- content -->
+			<div class="cont_tit txt">
+				<a href="detail_{{ ll.id }}">
+				<img src="{{ ll.img }}"/>
+				<h4>{{ ll.name | slice:":10" }}</h4>
+				<p>{{ ll.top | slice:":16" }}</p>
+				<span>￥{{ ll.price }}</span>
+				</a>
+			</div>
+			<!--y- content -->
+            {% endfor %}
+		</div>
+	</div>
+	<!-- 复用 -->
+</div>
+{% endfor %}
+
+{% endblock content %}
+
+
+{% block script %}
+	<!-- Swiper JS -->
+	<script src="/static/buyers/js/swiper.min.js"></script>
+	<!-- Initialize Swiper -->
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+				autoplay: {
+					delay: 3000,
+					stopOnLastSlide: false,
+					disableOnInteraction: true,
+				},
+				pagination: {
+					el: '.swiper-pagination',
+				},
+				fadeEffect: {
+					crossFade: true,
+				}
+		});
+	</script>
+{% endblock script %}
+
+
+
+

@@ -1,0 +1,67 @@
+.content .write_title{
+    height: 100px;
+}
+.content .write_title span{
+    font-size: 20px;
+    font-weight: 600;
+}
+.content .write_title input{
+    width: 340px;
+    height: 25px;
+    margin-bottom: 10px;
+}
+.content .write_text .span_bt{
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.content .write_tijiao{
+	width: 960px;
+	height: 40px;
+	display: flex;
+    margin-top: 20px;
+}
+.content .write_tijiao .input_radio li {
+    display: inline-block;
+    position: relative;
+    ist-style: none;
+}
+.content .write_tijiao .input_radio input[type="radio"] {
+    display: none;
+}
+.content .write_tijiao .input_radio span {
+    padding: 0 12px;
+    display: inline-block;
+    background: #F4F4F4;
+    border: 1px solid #F4F4F4;
+    border-radius: 4px;
+    line-height: 28px;
+    text-align: center;
+    color: #2D333B;
+    cursor: pointer;
+}
+.content .write_tijiao .input_radio input:checked+span {
+    background: rgba(93,142,216,0.16);
+    border-color: #5D8ED8;
+    color: #5D8ED8;
+}
+.content .write_tijiao input[type="submit"]{
+	width: 60px;
+	height: 30px;
+	background-color: #4E9EA0;
+	border: 0px;
+	border-radius: 4px;
+	margin-left: 750px;
+	color: #FFFFFF;
+}
+.content .write_title .write_property{
+    display: flex;
+}
+.content .write_title .write_property h4{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.content .write_title .write_property input{
+    margin-top: 5px;
+}

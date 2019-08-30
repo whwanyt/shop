@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mall_论坛 | 注册页</title>
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/register.css"/>
+    <script type="text/javascript" src="/static/tishi/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/tishi/js/message.js"></script>
+    <script>
+        $(function () {
+            if ({{ user }} == 0){
+            $.message({
+                message:'注册成功',
+                type:'info'
+		    });
+        }
+        if ({{ user }} == 1){
+            $.message({
+                message:'用户名已存在',
+                type:'info'
+		    });
+        }
+        if ({{ user }} == 2){
+            $.message({
+                message:'用户名不能为空',
+                type:'info'
+		    });
+        }
+        if ({{ user }} == 3){
+            $.message({
+                message:'密码不能为空',
+                type:'info'
+		    });
+        }
+        })
+    </script>
+	</head>
+	<body>
+		<div class="zhuce">
+			<div class="register_img">
+				<img src="/static/bbs/images/logo.jpg" />
+				<br />
+				<span>让我们在这里相遇</span>
+			</div>
+			<div class="register_zhuce">
+				<h2>注 册</h2>
+				<form action="/bbs/sign" method="post">
+					{% csrf_token %}
+					<input type="text" Name="Name" placeholder="用户名" required="">
+					<br>
+					<input type="text" Name="Email" placeholder="邮箱" required="">
+					<br>
+					<input type="password" Name="Password" placeholder="密码" required="">
+					<br>
+					
+					<input type="submit" value="免费注册">
+				<div class="clear"></div>
+			</div>
+		</div>
+	</body>
+</html>

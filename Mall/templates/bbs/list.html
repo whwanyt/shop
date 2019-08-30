@@ -1,0 +1,44 @@
+{% extends "bbs/base.html" %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/list.css"/>
+{% endblock css %}
+
+{% block navg %}
+    <!-- navg -->
+    <a  class="navg_a navg_g" href="/bbs"><span>论坛</span></a>
+    <p class="navg_p">></p>
+    <a href="#"><span>{{ title }}耳机讨论区</span></a>
+	<a id="user" class="navg_gooos" href="#"><span>我的中心</span></a>
+{% endblock navg %}
+		<!-- navg -->
+
+{% block seek %}
+		<!-- seek -->
+        <form action="/bbs/search" method="post">
+        {% csrf_token %}
+		<div class="seek back">
+            <input class="seek_seek" name="text" type="text" placeholder="请输入搜索内容"/>
+			<div class="seek_xu">
+				<input class="seek_xuanx" type="radio" name="seekxx" value="0" checked="checked"/>
+				<label class="seek_xuan">文章</label>
+				<input class="seek_xuanx" type="radio" name="seekxx" value="1"/>
+				<label class="seek_xuan">用户</label>
+			</div>
+			<input type="submit" value="搜索" class="seek_tijiao"/>
+		</div>
+        </form>
+		<!-- seek -->
+{% endblock seek %}
+
+{% block content %}
+<!-- 重用 -->
+{% for l in list %}
+<div class="context_list">
+    <img src="/static/bbs/images/folder_new.gif"/>
+    <a href="/bbs/detail_{{ l.id }}" class="aa">{{ l.title }}</a>
+    <em>{{ l.name }}</em>
+    <p>{{ l.date }}</p>
+</div>
+{% endfor %}
+{% endblock content %}

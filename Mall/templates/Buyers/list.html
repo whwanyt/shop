@@ -1,0 +1,37 @@
+{% extends "Buyers/base.html" %}
+
+{% block link %}
+    <link rel="stylesheet" href="/static/buyers/css/list.css">
+    <link rel="stylesheet" href="/static/buyers/css/index.css">
+    <script  src="/static/buyers/js/jquery-1.12.4.min.js"></script>
+{% endblock link %}
+
+{% block content %}
+	<!-- 标题图片 -->
+	<div class="top_img">
+		<img src="/static/buyers/image/titlogo_03.jpg" />
+	</div>
+	<div class="contt">	
+		<div class="cont">
+			<div class="cont_top">
+				<p>{{ name }}耳机</p>
+				<hr style="background-color: #000000;"/>
+			</div>
+			<div class="cont_lists">
+				{% for l in list %}
+				<!--x- content -->
+				<div class="cont_tis txt">
+					<a href="detail_{{ l.id }}">
+					<img src="{{ l.gimg }}"/>
+					<h4>{{ l.gname }}</h4>
+					<p>{{ l.gTtype | slice:":8" }}</p>
+					<span>￥{{ l.gPrice }}</span>
+					</a>
+				</div>
+				<!--y- content -->
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}

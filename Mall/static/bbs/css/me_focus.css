@@ -1,0 +1,30 @@
+.content .cont_text .cont_text_txt div{
+	width: 700px;
+	height: 50px;
+	display: flex;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #E0E0E0;
+}
+.content .cont_text .cont_text_txt div img{
+	width: 50px;
+	height: 50px;
+	border-radius: 90px;
+}
+.content .cont_text .cont_text_txt div span{
+	margin-left: 10px;
+	line-height: 50px;
+}
+.content .cont_text .cont_text_txt div input{
+	margin-left: 400px;
+	width: 80px;
+	height: 30px;
+	background-color: #F1F1F1;
+	border: 1px solid #999999;
+	border-radius: 5px;
+}
+.content .cont_text .cont_text_txt div input:hover{
+	background-color: #5F9EA0;
+	border: 1px solid #5F9EA0;
+	color: #FFF;
+}

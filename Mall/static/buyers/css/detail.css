@@ -1,0 +1,145 @@
+.det_jj{
+	margin: auto;
+	width: 100%;
+	height: 600px;
+	background-color: #FFF;
+}
+.det{
+	width: 1080px;
+	margin: auto;
+	background-color: #FFF;
+	display: flex;
+	margin-bottom: 80px;
+}
+.det_jj_img{
+	margin-top: 50px;
+	width: 500px;
+	height: 500px;
+	background-color: #F3F3F3;
+}
+
+/* swiper */
+.swiper-container {
+    width: 500px;
+    height: 500px;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+}
+.swiper-slide img{
+	width: 500px;
+	height: 500px;
+}
+
+.det_jj_cont{
+	margin-top: 50px;
+	margin-left: 80px;
+	width: 500px;
+	height: 500px;
+}
+.det_jj_cont hr{
+	margin-top: 10px;
+	margin-left: 0;
+	margin-bottom: 10px;
+	width:20px;
+	height: 3px;
+	border: 0;
+	background-color: #DC143C;
+}
+.det_jj_cont p{
+	font-size: 14px;
+	color: #666666;
+	margin-top: 5px;
+	margin-bottom: 40px;
+}
+.det_jj_cont span{
+	display: inline-block;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: auto;
+	height: 30px;
+	font-size: 12px;
+	border-radius:5px;
+	text-align: center;
+	line-height: 30px;
+	border:1px solid #DC143C;
+	margin-bottom: 30px;
+}
+.det_jj_cont h5{
+	color: #666666;
+	margin-bottom: 15px;
+}
+
+/* 单选按钮 */
+.radcol{
+	display: none;
+	width: 10px;
+	height: 10px;
+}
+.radcoll{
+	margin-top: -30px;
+	display: inline-block;
+    border:1px solid #ccc;
+    width:16px;
+    height: 16px;
+    border-radius:2px;
+    vertical-align: middle;
+    margin-right: 5px;
+    position: relative;
+}
+.radcoll::before{
+    content: '';
+    font-size: 0;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-left: -5px;
+    margin-top: -5px;
+    border-radius: 2px;
+    display: none;		
+}
+.radio1:before{
+	background: #DC143C;
+}
+.radio2:before{
+	background: #007AFF;
+}
+.radcol:checked~.radcoll:before{
+    display: block;
+}
+.inpnum{
+	text-align: center;
+	border-radius: 5px;
+	width: 50px;
+	height: 25px;
+	margin-top: -5px;
+	border: 1px solid #DC143C;
+}
+.btn{
+	margin-top: 30px;
+	margin-left: 5px;
+	width: 80px;
+	height: 26px;
+	color: #FFFFFF;
+	font-size: 10px;
+	background-color: #DC143C;
+	border: 0;
+}
+.det_centon{
+	width: 100%;
+	height: auto;
+	display: block;
+	margin-top: 50px;
+	text-align: center;
+	background-color: #FFF;
+}
+.det_centon img{
+	width: 1080px;
+	height: auto;
+	margin-top: -5px;
+	text-align: center;
+	margin-bottom: 1px;
+}

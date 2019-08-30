@@ -1,0 +1,35 @@
+{% extends "bbs/base_me.html" %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/me_post.css"/>
+{% endblock css %}
+
+{% block context %}
+				<div class="cont_text_title">
+					我的评测
+					<a href="/bbs/Userwrite">发表</a>
+				</div>
+				
+				<div class="cont_text_txt">
+                {% for l in list %}
+					<!-- 复用 -->
+					<div class="store">
+						<!-- 标题 -->
+						<div class="store_title">
+							<span>{{ l.property }}</span><h4>{{ l.title }}</h4>
+							<div>
+{#							<a href="/bbs/Userwrite">编辑</a>#}
+							<a href="/bbs/detail_{{ l.id }}">查看</a>
+							</div>
+						</div>
+						<div class="store_tent">
+							<p>{{ l.text }}</p>
+						</div>
+						<div class="store_footer">
+							<span>{{ l.author }}</span>
+							<p>{{ l.date }}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+{% endblock context %}

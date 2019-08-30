@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Mall商城-用户中心</title>
+	<link rel="stylesheet" type="text/css" href="/static/buyers/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/static/buyers/css/main.css">
+    <link rel="stylesheet" href="/static/buyers/css/asidenav.css">
+    <script type="text/javascript" src="/static/buyers/js/jquery.min.js"></script>
+    <script>
+        $(function () {
+            pro = $('#pro')
+            /*查询省*/
+            $.get('/pro',function (dic) {
+                $.each(dic.data,function (index, item) {
+                    pro.append('<option value="'+item[0]+'">'+item[1]+'</option>')
+                })
+                console.log(dic.data)
+            })
+            /*查询市*/
+            $('#pro').change(function () {
+                $.get('/city'+$(this).val(),function (list) {
+                    city = $('#city');
+                    city.empty().append('<option value="">请选择市</option>');
+                    $('#dis').empty().append('<option value="">请选择区</option>');
+                    $.each(list.data,function (index,item) {
+                        city.append('<option value="'+item.id+'">'+item.title+'</option>');
+                    })
+                    console.log(list.data)
+                })
+            })
+            /*查询区县*/
+            $('#city').change(function () {
+                $.get('/city'+$(this).val(),function (list) {
+                    dis = $('#dis').empty().append('<option value="">请选择区</option>');
+                    $.each(list.data,function (index,item) {
+                        dis.append('<option value="'+item.id+'">'+item.title+'</option>');
+                    })
+                    console.log(list.data)
+                })
+            })
+        });
+    </script>
+</head>
+<body>
+	
+	<div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="/static/buyers/image/logo.jpg" width="150px"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;Mall商城欢迎您： <span style="color: #f34444">{{ request.session.uname }}</span></div>
+		<div class="search_con fr">
+			<form method="get" action="/sous">
+			<input type="text" class="input_text fl" name="sous" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="info_{{ request.session.uname }}">· 个人信息</a></li>
+				<li><a href="order_{{ request.session.uname }}">· 全部订单</a></li>
+				<li><a href="site_{{ request.session.uname }}" class="active">· 收货地址</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<h3 class="common_title2">收货地址</h3>
+				<div class="site_con">
+					<dl>
+						<dt>当前地址：</dt>
+						<dd>{{ user.Uadd }}。收件人：{{ user.Upet }}   手机号：{{ user.Uphone }}</dd>
+					</dl>					
+				</div>
+				<h3 class="common_title2">编辑地址</h3>
+				<div class="site_con">
+					<form method="post" action="sitepot_{{ request.session.uname }}">
+                        {% csrf_token %}
+                        <input type="text" name="uname" value="{{ request.session.uname }}" style="display: none;">
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" name="user_pot" value="{{ user.Upet }}">
+						</div>
+						<div class="form_group">
+							<label>地址：</label>
+							<select id="pro" class="form_group3" name="user_shen">
+								<option value="">请选择省</option>
+							</select>
+							<select id="city" class="form_group3" name="user_shi">
+								<option value="">请选择市</option>
+							</select>
+							<select id="dis" class="form_group3" name="user_quxian">
+								<option value="">请选择区县</option>
+							</select>
+						</div>
+						<div class="form_group form_group2">
+							<label>详细地址：</label>
+							<textarea class="site_area" name="user_xx"></textarea>
+						</div>
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="text" name="user_phone" value="{{ user.Uphone }}">
+						</div>
+
+						<input type="submit" name="" value="提交" class="info_submit">
+					</form>
+				</div>
+		</div>
+	</div>
+
+    <!--浮窗-->
+    <div class="aside-nav bounceInUp animated" id="aside-nav">
+      <label for="" class="aside-menu" title="按住拖动">菜单</label>
+
+        <a href="/" title="首页" class="menu-item menu-first">首页</a>
+        <a href="Userout" title="登出" class="menu-item menu-second">登出</a>
+        <a href="order" title="购物车" class="menu-item menu-third">购物车</a>
+        <a href="/bbs" title="论坛" class="menu-item menu-fourth">论坛</a>
+    </div>
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2019 陕西218出品 All Rights Reserved</p>
+		<p>电话：010-****888    陕ICP备*******8号</p>
+	</div>
+<script type="text/javascript" src="/static/buyers/js/asidenav.js"></script>
+<script>
+    if ({{ state }} == 1){
+        alert("添加成功");
+    }
+</script>
+</body>
+</html>

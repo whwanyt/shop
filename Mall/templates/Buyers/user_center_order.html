@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Mall商城-用户中心</title>
+	<link rel="stylesheet" type="text/css" href="/static/buyers/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/static/buyers/css/main.css">
+    <link rel="stylesheet" href="/static/buyers/css/asidenav.css">
+    <script type="text/javascript" src="/static/buyers/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function(){
+             $("#all").change(function(){//判断全选框的改变
+                var flage =$(this).is(":checked");//全选选中为true，否则为false
+                $("input[type=checkbox]").each(function(){
+             $(this).prop("checked",flage);
+                })
+             })
+            })
+    </script>
+</head>
+<body>
+
+	<div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="/static/buyers/image/logo.jpg" width="150px"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;Mall商城欢迎您： <span style="color: #f34444">{{ request.session.uname }}</span></div>
+		<div class="search_con fr">
+			<input<form method="get" action="/sous">
+			<input type="text" class="input_text fl" name="sous" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="info_{{ request.session.uname }}">· 个人信息</a></li>
+				<li><a href="order_{{ request.session.uname }}" class="active">· 全部订单</a></li>
+				<li><a href="site_{{ request.session.uname }}">· 收货地址</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<h3 class="common_title2">全部订单</h3>
+				<ul class="order_list_th w978 clearfix">
+					<li class="col01">2016-8-21 17:36:24</li>
+					<li class="col02">订单号：56872934</li>
+					<li class="col02 stress">未支付</li>		
+				</ul>
+
+				<table class="order_list_table w980">
+                <form method="post" action="/cart_goods">
+                <input type="text" name="name" value="{{ request.session.uname }}" style="display: none;">
+                    {% csrf_token %}
+					<tbody>
+						<tr>
+							<td width="55%">
+                                {% for l in list1 %}
+								<ul class="order_goods_list clearfix">
+                                    <li class="col05"><input type="checkbox" value="{{ l.id }}" name="goods_id"></li>
+									<li class="col01"><img src="{{ l.img }}"></li>
+									<li class="col02">{{ l.name | slice:":10" }}</li>
+									<li class="col03">1</li>
+									<li class="col04">{{ l.price }}</li>
+								</ul>
+								{% endfor %}
+							</td>
+							<td width="15%">33.60元</td>
+							<td width="15%">待付款</td>
+							<td width="15%"><input type="submit" class="oper_btn" value="去付款" style="background-color: #FFF"></td>
+						</tr>
+                        <tr style="height: 30px;">
+                            <td>
+                                <input type="checkbox" id="all">全选</th>
+                            </td>
+                        </tr>
+					</tbody>
+                </form>
+				</table>
+				
+				<ul class="order_list_th w978 clearfix">
+					<li class="col01">2016-8-21 17:36:24</li>
+					<li class="col02">订单号：56872934</li>
+					<li class="col02 stress">已支付</li>			
+				</ul>
+				<table class="order_list_table w980">
+					<tbody>
+						<tr>
+							<td width="55%">
+                                {% for a in list2 %}
+								<ul class="order_goods_list clearfix">					
+									<li class="col01"><img src="{{ a.img }}"></li>
+									<li class="col02">{{ a.name }}</li>
+									<li class="col03">1</li>
+									<li class="col04">{{ a.price }}</li>
+								</ul>
+                                {% endfor %}
+							</td>
+							<td width="15%">33.60元</td>
+							<td width="15%">已付款</td>
+							<td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+	</div>
+
+    <!--浮窗-->
+    <div class="aside-nav bounceInUp animated" id="aside-nav">
+      <label for="" class="aside-menu" title="按住拖动">菜单</label>
+
+        <a href="/" title="首页" class="menu-item menu-first">首页</a>
+        <a href="Userout" title="登出" class="menu-item menu-second">登出</a>
+        <a href="order" title="购物车" class="menu-item menu-third">购物车</a>
+        <a href="/bbs" title="论坛" class="menu-item menu-fourth">论坛</a>
+    </div>
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2019 陕西218出品 All Rights Reserved</p>
+		<p>电话：010-****888    陕ICP备*******8号</p>
+	</div>
+<script type="text/javascript" src="/static/buyers/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/buyers/js/asidenav.js"></script>
+</body>
+</html>

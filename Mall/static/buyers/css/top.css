@@ -1,0 +1,139 @@
+/* logo */
+.logo{
+	margin: auto;
+	width: 1280px;
+	height: 80px;
+	display: flex;
+}
+.logo img{
+	margin-top: 10px;
+	margin-left: 100px;
+	width: 120px;
+	height: auto;
+}
+.logo ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	
+}
+.menu{
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+}
+.menu li{
+	flex-grow: 1;
+	text-align: center;
+	border-right: 1px solid #333;
+	margin-right: -1px;
+}
+.menu li a{
+	text-decoration: none;
+	color: #666;
+}
+.menu li:hover a{
+	padding-bottom: 2px;
+	border-bottom: 2px solid #DC143C;
+}
+
+ul li:nth-child(1){
+		/*父元素控件足够,子元素增长比例*/
+		/*单独设置*/
+		margin-left: 90px;
+		flex-grow: 1;
+		}
+@media (max-width: 1180px) {
+	.logo{
+		width: 100%;
+	}
+	.logo img{
+		margin-left: 100px;
+	}
+}
+
+
+/* 下拉栏 */
+.xll{
+	width: 100%;
+	height: 0px;
+	background-color: #FFF;
+	/*box-shadow: 0 2px 0 rgba(139, 139, 139, 0.7);*/
+}
+.xll img{
+	width: 220px;
+	height: 220px;
+}
+.xlla{
+	padding-top: 10px;
+	margin: auto;
+	width: 1180px;
+	height: 200px;
+	display: flex;
+}
+.xlla_z{
+	width: 300px;
+	text-align: center;
+	background-color: #FFF;
+	display: none;
+}
+.xlla_z ul{
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 14px;
+}
+.xlla_z a{
+	text-decoration: none;
+	color: #666;
+}
+.xlla_z a:hover{
+	border-bottom: 1px solid #DC143C;
+}
+
+.xlla_y{
+	width: 800px;
+	position: relative;
+	background-color: #FFF;
+	display: none;
+}
+.xlla_er{
+	position: absolute;
+	width: 800px;
+	display: none;
+	justify-content:space-around;
+}
+.xlla_ruer{
+	position: absolute;
+	width: 800px;
+	display: none;
+	justify-content:space-around;
+}
+.xlla_z a:hover .xlla_y{
+	display: block;
+} 
+.xlla_y_cont{
+	text-align: center;
+	width: 170px;
+	height: 220px;
+	background-color: #FFFFFF;
+}
+.xlla_y_cont img{
+	margin-top:30px ;
+	width: 140px;
+	height: auto;
+}
+.xlla_y_cont a{
+	text-decoration: none;
+}
+.xlla_y_cont span{
+	font-size: 14px;
+	color: #666;
+}
+.xlla_y_cont:hover .xll_y_cont_span{
+	color: #DC143C;
+}
+.xlla_y_cont:hover{
+	box-shadow: rgba(139, 139, 139, 0.7) 0.5px 1px 4px 0px;
+}

@@ -1,0 +1,28 @@
+{% extends "bbs/base_me.html" %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/me_store.css"/>
+{% endblock css %}
+
+{% block context %}
+    <div class="cont_text_title">我的收藏</div>
+    <div class="cont_text_txt">
+        {% for l in list %}
+        <!-- 复用 -->
+        <div class="store">
+            <!-- 标题 -->
+            <div class="store_title">
+                <span>{{ l.property }}</span><a href="/bbs/detail_{{ l.id }}">{{ l.title }}</a>
+{#                <p>取消收藏</p>#}
+            </div>
+            <div class="store_tent">
+                <p>简介：{{ l.text }}</p>
+            </div>
+            <div class="store_footer">
+                <span>{{ l.author }}</span>
+                <p>{{ l.date }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock context %}

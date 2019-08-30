@@ -1,0 +1,87 @@
+{% extends "bbs/base_me.html" %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/bbs/css/me_data.css"/>
+{% endblock css %}
+{% block js %}
+	<script>
+		$(function(){
+			$('#data_xiug_btn').click(function(){
+				$("#data_xg_id").fadeIn();
+			});
+			$('#data_xg_qx').click(function(){
+				$("#data_xg_id").fadeOut();
+			})
+		})
+	</script>
+{% endblock js %}
+
+{% block context %}
+    <div class="cont_text_title">个人资料</div>
+    <div class="cont_text_txt">
+        <div class="txt_z">
+            <img src="/static/media/{{ user.img }}" />
+        </div>
+        <div class="txt_y">
+            <table width="500" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td width="50px">ID:</td>
+                    <td width="50px">{{ user.name }}</td>
+                </tr>
+                <tr class="table_boon">
+                    <td class="table_bon">关注</td>
+                    <td class="table_bon">2</td>
+                    <td width="50px"  class="table_bon">粉丝</td>
+                    <td class="table_bon">0</td>
+                </tr>
+                <tr>
+                    <td>昵称:</td>
+                    <td>{{ user.name }}</td>
+                </tr>
+
+                <tr>
+                    <td>性别:</td>
+                    <td>{{ user.sex }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table width="600" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td width="50">简介:</td>
+                    <td width="500" height="auto">{{ user.about }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="data_xiug">
+            <input id="data_xiug_btn" type="button" value="修改资料"/>
+        </div>
+        <div class="data_xg" id="data_xg_id">
+            <form action="/bbs/age" enctype='multipart/form-data' method="post">
+                {% csrf_token %}
+                <input name="username" type="text" id="bbsname" style="display: none" value="{{ request.session.bbsname }}">
+                <div>
+                    <h3>信息修改</h3>
+                    <br />
+                    <span>头像</span>
+                    <input type="file" accept="image/*" name="userimg" id="file"/>
+                    <br />
+                    <span>性别:</span>
+                    <select name="usersex">
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                    <br />
+                    <p>简介:</p>
+                    <textarea style="width: 400px;height: 80px;" name="userabout" id="" cols="30" rows="10" class="layui-input"></textarea>
+                    <br />
+                    <input class="data_xg_btn" id="data_xg_tj" type="submit" value="完成"/>
+                    <input class="data_xg_btn" id="data_xg_qx" type="button" value="取消"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+{% endblock context %}
